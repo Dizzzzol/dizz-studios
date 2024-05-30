@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About me</title>
+<style>
+@keyframes Start {
+    0% {opacity: 0; top: 15%;}
+    100% {opacity: 1; top: 0%;}
+}
+@keyframes Header {
+    0% {opacity: 0; top: 50%;}
+    100% {opacity: 1; top: 22.5%;}
+}
+@keyframes About {
+    0% {opacity: 0; left:0px ;}
+    100% {opacity: 1; left: 25px;}
+}
+@keyframes Previous {
+    0% {opacity: 0; left:0% ;}
+    100% {opacity: 1; left: 25%;}
+}
+@keyframes PreviousCus {
+    0% {opacity: 0; left:0% ;}
+    100% {opacity: 1; left: 50%;}
+}
+@keyframes Contacts {
+    0% {opacity: 0; left:0% ;}
+    100% {opacity: 1; left: 75%;}
+}
+body {
+    background-color: gray;
+    background-image: url(Background.png);
+    background-repeat: no-repeat;
+    background-size: 200%, 300%;
+}
+div {
+    position: sticky;
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: linear-gradient(to right, rgb(1, 4, 60) , rgb(1,1,34));
+    margin: auto;
+    height: 75px;
+    animation-name: Start;
+    animation-duration: 4s;
+    
+}
+h1 {
+    animation-name: Header;
+    animation-duration: 4s;
+    color: aliceblue;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden;
+    white-space: nowrap;
+    position: absolute;
+    top: 20%;
+    left: 175px;
+    opacity: 1;
+}
+p, p2, p3 {
+    position: absolute;
+    left: 175px;
+    color: #fff;
+    font-family: monospace;
+    font-size: 20px;
+    overflow: hidden;
+    white-space: pre;
+}
+#paragraph1 {
+    top: 35%;
+}
+#paragraph2 {
+    top: 45%;
+}
+#paragraph3 {
+    top: 55%;
+}
+.About, .Previous, .PreviousCustomers, .Contacts {
+    font-family: Inter, arial;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    position: sticky;
+    top: 30px;
+    background-color: transparent;
+    color: grey;
+    opacity: 1;
+    transition: opacity .5s, color .5s;
+}
+.About {
+    left: 25px;
+    animation-name: About;
+    animation-duration: 2s;
+}
+.Previous {
+    left: 25%;
+    animation-name: Previous;
+    animation-duration: 2s;
+}
+.PreviousCustomers {
+    left: 50%;
+    animation-name: PreviousCus;
+    animation-duration: 2s;
+}
+.Contacts {
+    left: 75%;
+    animation-name: Contacts;
+    animation-duration: 2s;
+}
+.About:hover, .Previous:hover, .PreviousCustomers:hover, .Contacts:hover {
+    color: white;
+}
+
+.fade-siblings .About:not(:hover),
+.fade-siblings .Previous:not(:hover),
+.fade-siblings .PreviousCustomers:not(:hover),
+.fade-siblings .Contacts:not(:hover) {
+    opacity: 0.25;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+</style>
+</head>
+<body>
+
+<div class="nav-container"> 
+    <a href="index.html"><t class="About"><strong>1. About me</strong></t></a>
+    <a href="PreviousWork.html"><t2 class="Previous">2. Previous Work</t2></a>
+    <a href="PreviousCustomers.html"><t3 class="PreviousCustomers">3. Previous Customers</t3></a>
+    <a href="Contacts.html"><t4 class="Contacts">4. Contacts</t4></a>
+</div>
+<h1>Contacts</h1>
+<h2></h2>
+<p id="paragraph1"></p>
+<p id="paragraph2"></p>
+<p id="paragraph3"></p>
+
+<audio id="typing-sfx" src="TypingSFX.mp3"></audio>
+
+<script>
+document.querySelectorAll('.About, .Previous, .PreviousCustomers, .Contacts').forEach(item => {
+    item.addEventListener('mouseover', () => {
+        item.closest('.nav-container').classList.add('fade-siblings');
+    });
+    item.addEventListener('mouseout', () => {
+        item.closest('.nav-container').classList.remove('fade-siblings');
+    });
+});
+
+function typeWriter(text, elementId, delay, audio) {
+    let i = 0;
+    const element = document.getElementById(elementId);
+    audio.play().catch(error => console.log('Autoplay error:', error));
+    function type() {
+        if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, delay);
+        } else {
+            audio.pause();
+            audio.currentTime = 0; // Reset audio to the beginning for future use
+        }
+    }
+    type();
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    const text1 = "Here are my contacts";
+    const text2 = "Discord: Dizzzzol";
+    const text3 = 'Patreon: https://www.patreon.com/DizStudios \n \nYoutube: https://www.youtube.com/channel/UCsxu1lI1EzsWsnN8eedmogw';
+
+    const typingDelay = 3500; // Delay before typing starts in milliseconds
+    const typingSpeed = 10; // Typing speed in milliseconds per character
+    const audio = document.getElementById('typing-sfx');
+
+    setTimeout(() => {
+        typeWriter(text1, "paragraph1", typingSpeed, audio);
+        setTimeout(() => {
+            typeWriter(text2, "paragraph2", typingSpeed, audio);
+            setTimeout(() => {
+                typeWriter(text3, "paragraph3", typingSpeed, audio); // New paragraph typing
+            }, text2.length * typingSpeed + 500);
+        }, text1.length * typingSpeed + 500);
+    }, typingDelay);
+});
+</script>
+
+</body>
+</html>
+ 
